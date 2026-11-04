@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="it" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Officina Grifone — Prima capiamo, poi ripariamo</title>
+<meta name="description" content="Officina meccanica inventata per una demo di Mockly: tagliando, freni, gomme, diagnosi delle spie. Promemoria del tagliando e prenotazione su WhatsApp.">
+<link rel="canonical" href="https://mockly-website.github.io/officina-grifone/">
+<meta name="theme-color" content="#0D2640">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:site_name" content="Officina Grifone">
+<meta property="og:url" content="https://mockly-website.github.io/officina-grifone/">
+<meta property="og:title" content="Officina Grifone — Prima capiamo, poi ripariamo">
+<meta property="og:description" content="Officina meccanica inventata per una demo di Mockly: tagliando, freni, gomme, diagnosi delle spie. Promemoria del tagliando e prenotazione su WhatsApp.">
+<meta property="og:image" content="https://mockly-website.github.io/officina-grifone/assets/img/anteprima-social.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Disegno tecnico bianco su carta blu di un'auto smontata in pezzi, con la scritta Officina Grifone.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/icona.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/img/icona-180.png">
+<link rel="preload" href="assets/fonts/archivo-narrow-400-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/ibm-plex-mono-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/style.css?v=20261104b">
+<script>(function(d){var c=d.className.replace('no-js','js');if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)c+=' riduci';d.className=c;})(document.documentElement);</script>
+</head>
+<body class="has-barra">
+<a class="salta" href="#contenuto">Vai al contenuto</a>
+<svg class="vh" aria-hidden="true" focusable="false" width="0" height="0">
+  <defs>
+    <symbol id="s-marchio" viewBox="0 0 32 32">
+      <circle vector-effect="non-scaling-stroke" cx="16" cy="16" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path vector-effect="non-scaling-stroke" d="M16 1.5v29M1.5 16h29" fill="none" stroke="#FF6A13" stroke-width="2" stroke-dasharray="7 2.5 2 2.5"/>
+      <circle vector-effect="non-scaling-stroke" cx="16" cy="16" r="2.6" fill="#FF6A13"/>
+    </symbol>
+    <symbol id="s-ruota" viewBox="-44 -44 88 88">
+      <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <circle vector-effect="non-scaling-stroke" r="38"/>
+        <circle vector-effect="non-scaling-stroke" r="33" stroke-width="1" opacity=".55"/>
+        <circle vector-effect="non-scaling-stroke" r="24"/>
+        <circle vector-effect="non-scaling-stroke" r="7"/>
+        <circle vector-effect="non-scaling-stroke" cx="0" cy="-14" r="2.4"/><circle vector-effect="non-scaling-stroke" cx="13.3" cy="-4.3" r="2.4"/><circle vector-effect="non-scaling-stroke" cx="8.2" cy="11.3" r="2.4"/><circle vector-effect="non-scaling-stroke" cx="-8.2" cy="11.3" r="2.4"/><circle vector-effect="non-scaling-stroke" cx="-13.3" cy="-4.3" r="2.4"/>
+      </g>
+      <path vector-effect="non-scaling-stroke" d="M-44 0h88M0 -44v88" fill="none" stroke="#FF6A13" stroke-width="1" stroke-dasharray="7 3 2 3"/>
+    </symbol>
+    <symbol id="s-disco" viewBox="-24 -24 48 48">
+      <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <circle vector-effect="non-scaling-stroke" r="20"/>
+        <circle vector-effect="non-scaling-stroke" r="10"/>
+        <circle vector-effect="non-scaling-stroke" r="5"/>
+        <circle vector-effect="non-scaling-stroke" cx="0" cy="-15" r="1.3"/><circle vector-effect="non-scaling-stroke" cx="13" cy="7.5" r="1.3"/><circle vector-effect="non-scaling-stroke" cx="-13" cy="7.5" r="1.3"/>
+        <path vector-effect="non-scaling-stroke" d="M5 -22a22.5 22.5 0 0 1 17 13l-6 2.5a16 16 0 0 0 -11 -8.5z" fill="currentColor" fill-opacity=".22"/>
+      </g>
+    </symbol>
+    <symbol id="s-motore" viewBox="0 0 92 52">
+      <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect vector-effect="non-scaling-stroke" x="6" y="5" width="64" height="12" rx="2"/>
+        <path vector-effect="non-scaling-stroke" d="M14 11h48" stroke-width="1" opacity=".6"/>
+        <path vector-effect="non-scaling-stroke" d="M18 5V1M30 5V1M42 5V1M54 5V1"/>
+        <path vector-effect="non-scaling-stroke" d="M10 17h56v25H10z"/>
+        <path vector-effect="non-scaling-stroke" d="M14 42h48l-5 7H19z"/>
+        <rect vector-effect="non-scaling-stroke" x="20" y="25" width="10" height="11" rx="1.5"/>
+        <path vector-effect="non-scaling-stroke" d="M38 24h20M38 30h20" stroke-width="1" opacity=".6"/>
+        <circle vector-effect="non-scaling-stroke" cx="80" cy="34" r="8"/>
+        <circle vector-effect="non-scaling-stroke" cx="81" cy="12" r="5.5"/>
+        <path vector-effect="non-scaling-stroke" d="M72.2 32.4L75.8 11M88 35.5L86.4 12.6"/>
+      </g>
+    </symbol>
+    <symbol id="s-batteria" viewBox="0 0 36 30">
+      <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect vector-effect="non-scaling-stroke" x="2" y="7" width="32" height="21" rx="1.5"/>
+        <path vector-effect="non-scaling-stroke" d="M6 7V3h6v4M24 7V3h6v4"/>
+        <path vector-effect="non-scaling-stroke" d="M7 16h6M10 13v6M23 16h6"/>
+      </g>
+    </symbol>
+    <symbol id="s-centralina" viewBox="0 0 32 18">
+      <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect vector-effect="non-scaling-stroke" x="1" y="1" width="24" height="16" rx="1"/>
+        <rect vector-effect="non-scaling-stroke" x="25" y="4" width="6" height="10"/>
+        <path vector-effect="non-scaling-stroke" d="M5 6h14M5 10h14M5 13.5h9" stroke-width="1" opacity=".6"/>
+      </g>
+    </symbol>
+    <symbol id="s-clima" viewBox="0 0 14 52">
+      <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect vector-effect="non-scaling-stroke" x="1" y="1" width="12" height="50"/>
+        <path vector-effect="non-scaling-stroke" d="M1 8h12M1 14h12M1 20h12M1 26h12M1 32h12M1 38h12M1 44h12" stroke-width="1" opacity=".6"/>
+      </g>
+    </symbol>
+    <symbol id="s-scarico" viewBox="0 0 290 16">
+      <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path vector-effect="non-scaling-stroke" d="M289 8h-53"/>
+        <rect vector-effect="non-scaling-stroke" x="206" y="3" width="30" height="10" rx="4"/>
+        <path vector-effect="non-scaling-stroke" d="M206 8h-76"/>
+        <rect vector-effect="non-scaling-stroke" x="50" y="1" width="80" height="14" rx="6"/>
+        <path vector-effect="non-scaling-stroke" d="M50 9H2M2 6v6"/>
+      </g>
+    </symbol>
+    <symbol id="s-carrozzeria" viewBox="0 0 640 480">
+      <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path vector-effect="non-scaling-stroke" d="M95 322L90 276Q92 262 104 256L150 206Q158 199 170 199L362 196Q372 196 380 202L440 250L560 260Q584 263 590 276L596 312Q596 322 586 322L546 322A48 48 0 0 0 454 322L196 322A48 48 0 0 0 104 322Z"/>
+        <path vector-effect="non-scaling-stroke" d="M172 210L356 207L418 252L166 254Z"/>
+        <path vector-effect="non-scaling-stroke" d="M292 208L294 320M430 256L431 320"/>
+        <path vector-effect="non-scaling-stroke" d="M262 272h18M396 272h18"/>
+        <path vector-effect="non-scaling-stroke" d="M566 268L590 272L592 282L568 280Z"/>
+        <path vector-effect="non-scaling-stroke" d="M92 270L104 266L104 288L94 290Z"/>
+        <path vector-effect="non-scaling-stroke" d="M410 246l10-7 6 9z"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+<header class="testata">
+  <div class="contenitore testata__riga">
+    <a class="marchio" href="index.html" aria-label="Officina Grifone, torna alla home">
+      <svg aria-hidden="true"><use href="#s-marchio"/></svg>
+      <span class="marchio__nome"><span>Officina</span>Grifone</span>
+    </a>
+    <nav class="nav" aria-label="Principale">
+      <ul>
+          <li><a href="index.html" aria-current="page">Home</a></li>
+          <li><a href="servizi.html">Servizi e prezzi</a></li>
+          <li><a href="prenota.html">Prenota</a></li>
+      </ul>
+    </nav>
+    <a class="bottone testata__azione" href="prenota.html">Prenota un controllo</a>
+    <button class="menu-tasto" type="button" aria-expanded="false" aria-controls="menu" aria-label="Apri il menu">
+      <svg viewBox="0 0 28 28" aria-hidden="true"><path d="M3 8h22M3 14h22M3 20h14" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+    </button>
+  </div>
+</header>
+<div class="righello" aria-hidden="true">
+  <div class="righello__numeri"></div>
+  <div class="righello__cursore"></div>
+  <div class="righello__lettura">0 mm</div>
+</div>
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="menu__velo" data-chiudi></div>
+  <div class="menu__pannello">
+    <div class="menu__testa">
+      <span class="quota">Indice delle tavole</span>
+      <button class="menu__chiudi" type="button" aria-label="Chiudi il menu" data-chiudi>
+        <svg viewBox="0 0 26 26" aria-hidden="true"><path d="M5 5l16 16M21 5L5 21" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      </button>
+    </div>
+    <ul class="menu__lista">
+        <li><a href="index.html" aria-current="page">Home</a></li>
+        <li><a href="servizi.html">Servizi e prezzi</a></li>
+        <li><a href="prenota.html">Prenota</a></li>
+    </ul>
+    <div class="menu__fondo">
+      <a class="bottone" href="prenota.html">Prenota un controllo</a>
+      <a class="bottone bottone--linea" href="#orari" data-chiudi>Orari e indirizzo</a>
+      <p class="nota-esempio">Prezzi e orari di questo sito sono di esempio.</p>
+    </div>
+  </div>
+</div>
+<main id="contenuto">
+  <section class="esploso" aria-labelledby="titolo">
+    <div class="esploso__pin contenitore">
+      <div class="esploso__testo">
+        <p class="etichetta">Tav. 01 · Officina meccanica</p>
+        <h1 class="titolo-1" id="titolo">Prima capiamo. <em>Poi</em> ripariamo.</h1>
+        <p class="esploso__sotto">Diagnosi, preventivo scritto su WhatsApp, pezzi vecchi da vedere. Tagliando, freni, gomme e spie accese.</p>
+        <div class="esploso__azioni">
+          <a class="bottone" href="prenota.html">Prenota un controllo</a>
+          <a class="link-quota" href="#tagliando">Quando tocca il tagliando?</a>
+        </div>
+      </div>
+      <div class="esploso__palco">
+        <div class="palco">
+          <span class="plotter" aria-hidden="true"></span>
+          <svg class="auto" viewBox="0 90 640 390" aria-hidden="true" focusable="false">
+        <line class="tratto terra disegno" style="--i:0" x1="20" y1="340" x2="620" y2="340"/>
+        <line class="asse" x1="501" y1="281" x2="511" y2="131"/>
+        <line class="asse" x1="500" y1="300" x2="445" y2="418"/>
+        <line class="asse" x1="150" y1="300" x2="110" y2="375"/>
+        <line class="asse" x1="394" y1="271" x2="274" y2="121"/>
+        <line class="asse" x1="593" y1="292" x2="615" y2="172"/>
+        <line class="asse" x1="423" y1="275" x2="413" y2="140"/>
+        <line class="asse" x1="255" y1="330" x2="255" y2="435"/>
+        <line class="asse" x1="500" y1="300" x2="540" y2="375"/>
+        <g class="disegno" style="--i:1"><use href="#s-carrozzeria" x="0" y="0" width="640" height="480"/></g>
+                <g class="disegno" style="--i:2"><g class="pezzo" data-pezzo="scarico" data-dx="0" data-dy="105"><use href="#s-scarico" x="110" y="322" width="290" height="16"/></g></g>
+        <g class="disegno" style="--i:3"><g class="pezzo" data-pezzo="centralina" data-dx="-120" data-dy="-150"><use href="#s-centralina" x="378" y="262" width="32" height="18"/></g></g>
+        <g class="disegno" style="--i:4"><g class="pezzo" data-pezzo="batteria" data-dx="-10" data-dy="-135"><use href="#s-batteria" x="405" y="260" width="36" height="30"/></g></g>
+        <g class="disegno" style="--i:5"><g class="pezzo" data-pezzo="clima" data-dx="22" data-dy="-120"><use href="#s-clima" x="586" y="266" width="14" height="52"/></g></g>
+        <g class="disegno" style="--i:6"><g class="pezzo" data-pezzo="motore" data-dx="10" data-dy="-150"><use href="#s-motore" x="455" y="255" width="92" height="52"/></g></g>
+        <g class="disegno" style="--i:7"><g class="pezzo" data-pezzo="ruota-post" data-dx="-40" data-dy="75"><use href="#s-ruota" x="106" y="256" width="88" height="88"/></g></g>
+        <g class="disegno" style="--i:8"><g class="pezzo" data-pezzo="ruota-ant" data-dx="40" data-dy="75"><use href="#s-ruota" x="456" y="256" width="88" height="88"/></g></g>
+        <g class="disegno" style="--i:9"><g class="pezzo" data-pezzo="disco" data-dx="-55" data-dy="118"><use href="#s-disco" x="476" y="276" width="48" height="48"/></g></g>
+      </svg>
+          <div class="lettere">
+        <a class="lettera lettera--sx" href="servizi.html#tagliando" data-per="motore" style="--x:89.84;--y:9.74" tabindex="-1" aria-hidden="true"><span class="lettera__sigla">A</span><span class="lettera__nome">Tagliando</span></a>
+        <a class="lettera lettera--sx" href="servizi.html#freni" data-per="disco" style="--x:61.72;--y:84.62" tabindex="-1" aria-hidden="true"><span class="lettera__sigla">B</span><span class="lettera__nome">Freni</span></a>
+        <a class="lettera lettera--dx" href="servizi.html#gomme" data-per="ruota-post" style="--x:7.81;--y:91.79" tabindex="-1" aria-hidden="true"><span class="lettera__sigla">C</span><span class="lettera__nome">Gomme</span></a>
+        <a class="lettera lettera--sx" href="servizi.html#diagnosi" data-per="centralina" style="--x:36.25;--y:7.95" tabindex="-1" aria-hidden="true"><span class="lettera__sigla">D</span><span class="lettera__nome">Diagnosi</span></a>
+        <a class="lettera lettera--sx" href="servizi.html#clima" data-per="clima" style="--x:93.75;--y:36.41" tabindex="-1" aria-hidden="true"><span class="lettera__sigla">E</span><span class="lettera__nome">Clima</span></a>
+        <a class="lettera lettera--sx" href="servizi.html#batteria" data-per="batteria" style="--x:64.53;--y:23.08" tabindex="-1" aria-hidden="true"><span class="lettera__sigla">F</span><span class="lettera__nome">Batteria</span></a>
+        <a class="lettera lettera--dx" href="servizi.html#revisione" data-per="scarico" style="--x:51.56;--y:95.38" tabindex="-1" aria-hidden="true"><span class="lettera__sigla">G</span><span class="lettera__nome">Pre-revisione</span></a>
+          </div>
+        </div>
+        <p class="palco__dida quota" aria-live="polite"><span data-dida>Scorri: smontiamo l'auto pezzo per pezzo.</span></p>
+        <ol class="vivo" aria-label="Distinta dei pezzi">
+          <li><a class="vivo__riga" href="servizi.html#tagliando" data-per="motore"><span class="vivo__pos" aria-hidden="true">A</span><span class="vivo__nome">Tagliando</span><span class="vivo__prezzo">da 140 €</span></a></li>
+          <li><a class="vivo__riga" href="servizi.html#freni" data-per="disco"><span class="vivo__pos" aria-hidden="true">B</span><span class="vivo__nome">Freni</span><span class="vivo__prezzo">da 90 €</span></a></li>
+          <li><a class="vivo__riga" href="servizi.html#gomme" data-per="ruota-post"><span class="vivo__pos" aria-hidden="true">C</span><span class="vivo__nome">Gomme</span><span class="vivo__prezzo">da 50 €</span></a></li>
+          <li><a class="vivo__riga" href="servizi.html#diagnosi" data-per="centralina"><span class="vivo__pos" aria-hidden="true">D</span><span class="vivo__nome">Diagnosi</span><span class="vivo__prezzo">35 €</span></a></li>
+          <li><a class="vivo__riga" href="servizi.html#clima" data-per="clima"><span class="vivo__pos" aria-hidden="true">E</span><span class="vivo__nome">Clima</span><span class="vivo__prezzo">da 70 €</span></a></li>
+          <li><a class="vivo__riga" href="servizi.html#batteria" data-per="batteria"><span class="vivo__pos" aria-hidden="true">F</span><span class="vivo__nome">Batteria</span><span class="vivo__prezzo">da 110 €</span></a></li>
+          <li><a class="vivo__riga" href="servizi.html#revisione" data-per="scarico"><span class="vivo__pos" aria-hidden="true">G</span><span class="vivo__nome">Pre-revisione</span><span class="vivo__prezzo">30 €</span></a></li>
+        </ol>
+        <p class="vivo__nota nota-esempio">Prezzi di esempio · <a href="servizi.html">tutti i servizi →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sezione distinta-sez" aria-labelledby="t-distinta">
+    <div class="contenitore">
+      <div class="sezione__testa rv">
+        <p class="etichetta">Distinta dei pezzi</p>
+        <h2 class="titolo-2" id="t-distinta">Sette pezzi, sette lavori.</h2>
+        <p class="attacco">Prezzi di esempio per un'utilitaria, IVA inclusa. Quello vero lo leggi nel preventivo, prima di cominciare.</p>
+      </div>
+      <div class="distinta rv">
+        <div class="distinta__testa" aria-hidden="true"><span>Pos.</span><span>Lavoro</span><span>Prezzo</span></div>
+        <ol>
+          <li><a class="distinta__riga" href="servizi.html#tagliando" data-per="motore"><span class="distinta__pos" aria-hidden="true">A</span><span class="distinta__nome">Tagliando<small>Olio, filtri e controllo dei liquidi</small></span><span class="distinta__prezzo">da 140 €</span></a></li>
+          <li><a class="distinta__riga" href="servizi.html#freni" data-per="disco"><span class="distinta__pos" aria-hidden="true">B</span><span class="distinta__nome">Freni<small>Pastiglie, dischi e liquido freni</small></span><span class="distinta__prezzo">da 90 €</span></a></li>
+          <li><a class="distinta__riga" href="servizi.html#gomme" data-per="ruota-post"><span class="distinta__pos" aria-hidden="true">C</span><span class="distinta__nome">Gomme<small>Cambio stagionale, equilibratura, convergenza</small></span><span class="distinta__prezzo">da 50 €</span></a></li>
+          <li><a class="distinta__riga" href="servizi.html#diagnosi" data-per="centralina"><span class="distinta__pos" aria-hidden="true">D</span><span class="distinta__nome">Diagnosi<small>Spie accese, rumori, auto in protezione</small></span><span class="distinta__prezzo">35 €</span></a></li>
+          <li><a class="distinta__riga" href="servizi.html#clima" data-per="clima"><span class="distinta__pos" aria-hidden="true">E</span><span class="distinta__nome">Clima<small>Ricarica del gas e ricerca perdite</small></span><span class="distinta__prezzo">da 70 €</span></a></li>
+          <li><a class="distinta__riga" href="servizi.html#batteria" data-per="batteria"><span class="distinta__pos" aria-hidden="true">F</span><span class="distinta__nome">Batteria<small>Controllo gratuito e sostituzione</small></span><span class="distinta__prezzo">da 110 €</span></a></li>
+          <li><a class="distinta__riga" href="servizi.html#revisione" data-per="scarico"><span class="distinta__pos" aria-hidden="true">G</span><span class="distinta__nome">Pre-revisione<small>Luci, freni, gomme e scarico prima della revisione</small></span><span class="distinta__prezzo">30 €</span></a></li>
+        </ol>
+      </div>
+      <p class="distinta__piede"><a class="link-quota" href="servizi.html">Tutti i servizi, i tempi e i prezzi</a></p>
+    </div>
+  </section>
+
+  <section class="foglio" aria-labelledby="t-nota">
+    <div class="contenitore nota">
+      <p class="quota nota__num rv">Nota tecnica n. 1 · vale per ogni lavoro</p>
+      <h2 class="nota__frase rv" id="t-nota">Se apriamo e troviamo altro, <mark>prima ti chiamiamo.</mark></h2>
+      <div class="nota__piede rv">
+        <p>Il preventivo che firmi non cresce da solo.</p>
+        <p>I pezzi sostituiti li trovi nel bagagliaio, se li vuoi vedere.</p>
+      </div>
+      <p class="timbro-firma rv">Visto, si ripara · firma del cliente</p>
+    </div>
+  </section>
+
+  <section class="sezione" id="tagliando" aria-labelledby="t-tagliando">
+    <div class="contenitore">
+      <div class="sezione__testa rv">
+        <p class="etichetta">Promemoria tagliando</p>
+        <h2 class="titolo-2" id="t-tagliando">Quando tocca il tagliando?</h2>
+        <p class="attacco">Bastano due date e due numeri dal libretto e dal contachilometri. Il conto lo fa il telefono, e i dati non escono da qui.</p>
+      </div>
+      <form class="scheda rv" id="calcolo" novalidate>
+        <div class="scheda__testa"><span class="quota"><b>Scheda di manutenzione</b></span><span class="quota">Mod. TG-1</span></div>
+        <div class="scheda__corpo">
+          <div class="campi campi--due">
+            <div class="campo" data-campo="data">
+              <label for="c-data">Data dell'ultimo tagliando</label>
+              <input type="date" id="c-data" name="data" required aria-describedby="e-data">
+              <p class="errore" id="e-data">Scrivi una data passata, come sul libretto.</p>
+            </div>
+            <div class="campo" data-campo="kmprima">
+              <label for="c-kmprima">Km a quel tagliando</label>
+              <div class="unita"><input type="number" id="c-kmprima" name="kmprima" inputmode="numeric" min="0" max="999999" step="1" placeholder="es. 60000" required aria-describedby="e-kmprima"><span>km</span></div>
+              <p class="errore" id="e-kmprima">Scrivi i chilometri, solo numeri.</p>
+            </div>
+            <div class="campo" data-campo="kmoggi">
+              <label for="c-kmoggi">Km di oggi</label>
+              <div class="unita"><input type="number" id="c-kmoggi" name="kmoggi" inputmode="numeric" min="0" max="999999" step="1" placeholder="es. 71800" required aria-describedby="e-kmoggi"><span>km</span></div>
+              <p class="errore" id="e-kmoggi">Devono essere almeno quelli dell'ultimo tagliando.</p>
+            </div>
+            <div class="campo">
+              <label for="c-intervallo">Ogni quanto, dal libretto</label>
+              <select id="c-intervallo" name="intervallo">
+                <option value="10000-12">10.000 km o 1 anno</option>
+                <option value="15000-12" selected>15.000 km o 1 anno</option>
+                <option value="20000-12">20.000 km o 1 anno</option>
+                <option value="20000-24">20.000 km o 2 anni</option>
+                <option value="30000-24">30.000 km o 2 anni</option>
+              </select>
+              <p class="campo__aiuto">Non lo sai? Lascia 15.000 km o 1 anno: è un valore tipico.</p>
+            </div>
+          </div>
+          <button class="bottone" type="submit">Calcola la data</button>
+          <div class="esito" aria-live="polite">
+            <p class="esito__vuoto" data-vuoto>Qui compare la data del prossimo tagliando.</p>
+            <div data-pieno hidden>
+              <span class="esito__stato" data-stato-t></span>
+              <p class="quota" style="margin:14px 0 6px" data-etichetta-t>Prossimo tagliando entro il</p>
+              <p class="esito__data titolo-2" data-data></p>
+              <p data-frase></p>
+              <div class="misura">
+                <div class="misura__testo quota"><span>Chilometri</span><span data-km-testo></span></div>
+                <div class="misura__barra"><span class="misura__pieno" data-km-barra></span></div>
+              </div>
+              <div class="misura" style="margin-top:12px">
+                <div class="misura__testo quota"><span>Tempo</span><span data-tempo-testo></span></div>
+                <div class="misura__barra"><span class="misura__pieno" data-tempo-barra></span></div>
+              </div>
+              <div class="esito__azioni" style="margin-top:20px">
+                <a class="bottone" href="prenota.html?servizio=tagliando" data-prenota-t>Prenota il tagliando</a>
+                <button class="bottone bottone--linea" type="button" data-calendario>Aggiungi al calendario</button>
+              </div>
+              <p class="nota-esempio" style="margin-top:14px">Stima indicativa: per la tua auto vale sempre il libretto della casa.</p>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="sezione" id="come" aria-labelledby="t-come">
+    <div class="contenitore">
+      <div class="sezione__testa rv">
+        <p class="etichetta">Ciclo di lavoro</p>
+        <h2 class="titolo-2" id="t-come">Dalla spia accesa alle chiavi in mano.</h2>
+      </div>
+      <ol class="ciclo" style="list-style:none;margin:0;padding:0">
+        <li class="fase rv">
+          <figure class="fase__figura">
+            <div class="fase__foto">
+              <img src="assets/img/sotto-960.webp" srcset="assets/img/sotto-480.webp 480w, assets/img/sotto-960.webp 960w, assets/img/sotto-1440.webp 1440w" sizes="(min-width: 768px) 55vw, 100vw" width="960" height="727" alt="Auto sui cavalletti" loading="lazy" decoding="async">
+              <span class="cerchio" style="--x:79;--y:80;--r:22" aria-hidden="true"></span>
+            </div>
+            <figcaption class="fase__quota quota"><span>fig. 1 · ammortizzatore smontato</span></figcaption>
+          </figure>
+          <div>
+            <span class="fase__num" aria-hidden="true">01</span>
+            <h3 class="fase__titolo">Ascoltiamo</h3>
+            <p class="fase__testo">Raccontaci il rumore: se lo fa solo in curva o solo a freddo, facciamo un giro insieme. Poi l'auto va sul ponte.</p>
+          </div>
+        </li>
+        <li class="fase rv">
+          <figure class="fase__figura">
+            <div class="fase__foto">
+              <img src="assets/img/motore-960.webp" srcset="assets/img/motore-480.webp 480w, assets/img/motore-960.webp 960w, assets/img/motore-1440.webp 1440w" sizes="(min-width: 768px) 55vw, 100vw" width="960" height="1178" alt="Vano motore con cavi e vaschetta in primo piano" loading="lazy" decoding="async">
+              <span class="cerchio" style="--x:58;--y:40;--r:26" aria-hidden="true"></span>
+            </div>
+            <figcaption class="fase__quota quota"><span>fig. 2 · vano motore</span></figcaption>
+          </figure>
+          <div>
+            <span class="fase__num" aria-hidden="true">02</span>
+            <h3 class="fase__titolo">Diagnosi</h3>
+            <p class="fase__testo">Lo strumento si collega alla presa sotto il volante. Il codice d'errore dice dove guardare, non cosa cambiare: il resto lo fanno occhi e mani.</p>
+          </div>
+        </li>
+        <li class="fase rv">
+          <figure class="fase__figura">
+            <div class="fase__foto">
+              <img src="assets/img/freni-960.webp" srcset="assets/img/freni-480.webp 480w, assets/img/freni-960.webp 960w, assets/img/freni-1440.webp 1440w" sizes="(min-width: 768px) 55vw, 100vw" width="960" height="1280" alt="Disco del freno consumato, montato sul mozzo" loading="lazy" decoding="async">
+              <span class="cerchio" style="--x:26;--y:38;--r:18" aria-hidden="true"></span>
+            </div>
+            <figcaption class="fase__quota quota"><span>fig. 3 · disco con lo scalino sul bordo</span></figcaption>
+          </figure>
+          <div>
+            <span class="fase__num" aria-hidden="true">03</span>
+            <h3 class="fase__titolo">Preventivo</h3>
+            <p class="fase__testo">Ti mandiamo su WhatsApp la foto del pezzo e il prezzo, voce per voce. Si comincia solo dopo il tuo sì.</p>
+          </div>
+        </li>
+        <li class="fase rv">
+          <figure class="fase__figura">
+            <div class="fase__foto">
+              <img src="assets/img/attrezzi-960.webp" srcset="assets/img/attrezzi-480.webp 480w, assets/img/attrezzi-960.webp 960w, assets/img/attrezzi-1440.webp 1440w" sizes="(min-width: 768px) 55vw, 100vw" width="960" height="1440" alt="Cassetta con chiavi combinate in ordine" loading="lazy" decoding="async">
+              <span class="cerchio" style="--x:60;--y:28;--r:22" aria-hidden="true"></span>
+            </div>
+            <figcaption class="fase__quota quota"><span>fig. 4 · chiavi combinate</span></figcaption>
+          </figure>
+          <div>
+            <span class="fase__num" aria-hidden="true">04</span>
+            <h3 class="fase__titolo">Consegna</h3>
+            <p class="fase__testo">Prova su strada, conto uguale al preventivo, pezzi vecchi nel bagagliaio. E il prossimo tagliando segnato sul libretto.</p>
+          </div>
+        </li>
+      </ol>
+      <div class="spazio-recensioni rv">
+        <p class="quota">Spazio riservato</p>
+        <p><strong>Qui vanno le recensioni dei tuoi clienti</strong></p>
+        <p>In un sito vero ci vanno le parole di chi ha già portato l'auto in officina.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contenitore collaudo" aria-labelledby="t-collaudo">
+    <div class="collaudo__palco rv">
+      <svg viewBox="40 150 590 210" aria-hidden="true" focusable="false">
+          <line x1="40" y1="340" x2="630" y2="340" stroke="currentColor" stroke-opacity=".5" stroke-dasharray="2 6"/>
+          <use href="#s-carrozzeria" x="0" y="0" width="640" height="480"/>
+          <use href="#s-ruota" x="106" y="256" width="88" height="88"/>
+          <use href="#s-ruota" x="456" y="256" width="88" height="88"/>
+        </svg>
+      <p class="timbro" aria-hidden="true">Collaudato<small>prova su strada ok</small></p>
+    </div>
+    <div class="rv">
+      <h2 class="collaudo__titolo" id="t-collaudo">Collaudata. Puoi&nbsp;ripartire.</h2>
+      <p class="collaudo__testo">Quando si accende una spia, o il libretto dice che è ora, sai dove portarla.</p>
+      <a class="bottone" href="prenota.html">Prenota un controllo</a>
+    </div>
+  </section>
+</main>
+<footer class="piede" id="orari">
+  <div class="contenitore">
+    <div class="cartiglio">
+      <div class="cella cella--titolo">
+        <span class="cella__nome">Titolo della tavola</span>
+        <span class="marchio__nome"><span>Officina</span>Grifone</span>
+        <p>Meccanica generale, freni, gomme, diagnosi e clima.</p>
+      </div>
+      <div class="cella cella--fine">
+        <span class="cella__nome">Stato</span>
+        <p class="stato-ora" data-stato>Orari qui sotto</p>
+      </div>
+      <div class="cella">
+        <span class="cella__nome">Dove</span>
+        <p>Via dell'Esempio 1<br>Sardegna</p>
+        <p class="nota-esempio">Indirizzo di esempio.</p>
+      </div>
+      <div class="cella cella--largo">
+        <span class="cella__nome">Orari (di esempio)</span>
+        <ul class="orari">
+          <li data-giorni="1,2,3,4,5"><span>Lun – Ven</span><span>8:00–12:30<br>14:30–18:30</span></li>
+          <li data-giorni="6"><span>Sabato</span><span>8:00–12:00</span></li>
+          <li data-giorni="0"><span>Domenica</span><span>chiuso</span></li>
+        </ul>
+      </div>
+      <div class="cella cella--fine cella--largo cartiglio__link">
+        <span class="cella__nome">Contatti</span>
+        <a href="prenota.html">Prenota un controllo</a>
+        <a href="servizi.html">Servizi e prezzi</a>
+        <a href="https://wa.me/393517578080?text=Ciao%20Mockly%2C%20ho%20visto%20la%20demo%20dell%27Officina%20Grifone%20e%20ho%20una%20domanda." target="_blank" rel="noopener">WhatsApp (arriva a Mockly)</a>
+      </div>
+    </div>
+    <div class="mockly">
+      <p>Sito dimostrativo realizzato da Mockly. L'attività è inventata.</p>
+      <p>Vuoi un sito così per il tuo lavoro? <a href="https://wa.me/393517578080?text=Ciao%20Mockly%2C%20ho%20visto%20la%20demo%20dell%27Officina%20Grifone%3A%20vorrei%20un%20sito%20cos%C3%AC%20per%20il%20mio%20lavoro." target="_blank" rel="noopener">Scrivici su WhatsApp</a></p>
+      <p><a href="CREDITI.md">Crediti di foto e caratteri</a></p>
+    </div>
+  </div>
+</footer>
+<nav class="barra" aria-label="Azioni rapide">
+  <a class="bottone bottone--linea" href="#orari"><span class="barra__stato" aria-hidden="true"></span>Orari</a>
+  <a class="bottone" href="prenota.html">Prenota<span class="lungo">&nbsp;un controllo</span></a>
+</nav>
+<script src="assets/js/main.js?v=20261104b"></script>
+</body>
+</html>
