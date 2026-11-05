@@ -64,12 +64,15 @@ body {
   line-height: 1.5;
   color: var(--bianco);
   background-color: var(--blu);
+  /* carta da lucido: più chiara in alto, più scura verso il fondo, poi la griglia */
   background-image:
-    linear-gradient(rgba(244, 247, 251, 0.11) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(244, 247, 251, 0.11) 1px, transparent 1px),
-    linear-gradient(rgba(244, 247, 251, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(244, 247, 251, 0.045) 1px, transparent 1px);
-  background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+    linear-gradient(180deg, rgba(58, 118, 182, 0.34) 0, rgba(58, 118, 182, 0) 46vh, rgba(0, 0, 0, 0) 58%, rgba(4, 14, 30, 0.4) 100%),
+    linear-gradient(rgba(244, 247, 251, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(244, 247, 251, 0.14) 1px, transparent 1px),
+    linear-gradient(rgba(244, 247, 251, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(244, 247, 251, 0.05) 1px, transparent 1px);
+  background-size: 100% 100%, 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+  isolation: isolate;
   padding-top: calc(var(--header-h) + var(--righello));
   padding-bottom: var(--barra-h);
   -webkit-tap-highlight-color: transparent;
@@ -441,6 +444,82 @@ p, li { text-wrap: pretty; }
 }
 .barra__stato.is-aperto { background: #4ADE80; }
 
+
+/* ---------- Fondo della tavola: grana, cornice, ruota ---------- */
+/* Tre livelli fissi dietro al contenuto: grana e bordo scuro, ruota, cornice con segni di centratura */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(ellipse 125% 95% at 50% 42%, transparent 52%, rgba(3, 12, 26, 0.5) 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .17 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 100% 100%, 220px 220px;
+}
+body::after {
+  content: "";
+  position: fixed;
+  top: calc(var(--header-h) + var(--righello) + 8px);
+  right: 8px;
+  bottom: calc(var(--barra-h) + 8px);
+  left: 8px;
+  z-index: -1;
+  pointer-events: none;
+  border: 1px solid rgba(244, 247, 251, 0.36);
+  box-shadow: inset 0 0 0 5px transparent, inset 0 0 0 6px rgba(244, 247, 251, 0.16);
+  background:
+    linear-gradient(rgba(244, 247, 251, 0.55), rgba(244, 247, 251, 0.55)) 50% 0 / 1px 18px no-repeat,
+    linear-gradient(rgba(244, 247, 251, 0.55), rgba(244, 247, 251, 0.55)) 50% 100% / 1px 18px no-repeat,
+    linear-gradient(rgba(244, 247, 251, 0.55), rgba(244, 247, 251, 0.55)) 0 50% / 18px 1px no-repeat,
+    linear-gradient(rgba(244, 247, 251, 0.55), rgba(244, 247, 251, 0.55)) 100% 50% / 18px 1px no-repeat;
+}
+.fondale {
+  --d: min(125vw, 920px);
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.fondale__ruota, .fondale__assi {
+  position: absolute;
+  width: var(--d);
+  height: var(--d);
+  right: calc(var(--d) * -0.42);
+  top: calc(50% - var(--d) / 2);
+}
+.fondale__ruota { opacity: 0.1; will-change: transform; }
+.fondale__assi { opacity: 0.3; }
+.fondale svg { width: 100%; height: 100%; overflow: visible; color: var(--bianco); }
+.fondale__ruota :where(circle, path) {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4px;
+  vector-effect: non-scaling-stroke;
+}
+.fondale__assi path {
+  fill: none;
+  stroke: var(--arancio);
+  stroke-width: 1px;
+  stroke-dasharray: 8 4 2 4;
+  vector-effect: non-scaling-stroke;
+}
+/* scala dei gradi: un segno ogni 5°, uno più lungo ogni 30° */
+.fondale__ruota .gradi { vector-effect: none; stroke-width: 1.2; stroke-dasharray: 0.21 4.0224; }
+.fondale__ruota .gradi--grandi { vector-effect: none; stroke-width: 2.6; stroke-dasharray: 0.21 25.1845; }
+@media (min-width: 1024px) {
+  .fondale { --d: min(80vw, 980px); }
+  body::after {
+    top: calc(var(--header-h) + 12px);
+    right: 12px;
+    bottom: 12px;
+    left: calc(44px + 12px);
+  }
+}
+@media print { .fondale, body::before, body::after { display: none; } }
+
 /* ---------- Comparse ---------- */
 .js .rv { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
 .js .rv.is-in { opacity: 1; transform: none; }
@@ -611,7 +690,7 @@ p, li { text-wrap: pretty; }
 .vivo__prezzo { font-family: var(--mono); font-size: 1rem; white-space: nowrap; }
 .vivo__prezzo::after { content: " \2192"; color: var(--arancio); }
 .vivo__nota { margin: 8px 0 0; }
-.vivo__nota a { display: inline-flex; align-items: center; min-height: 44px; color: var(--bianco); }
+.vivo__nota a { display: flex; align-items: center; width: fit-content; min-height: 44px; color: var(--bianco); }
 .no-js .vivo__riga, .riduci .vivo__riga { opacity: 1; }
 .distinta-sez { display: none; }
 

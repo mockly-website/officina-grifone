@@ -77,6 +77,7 @@
 
   /* ---------------- Righello di avanzamento ---------------- */
   var righello = $(".righello");
+  var ruota = $(".fondale__ruota");
   var lettura = $(".righello__lettura");
   var numeri = $(".righello__numeri");
   function disegnaNumeri() {
@@ -93,6 +94,7 @@
     var p = max > 0 ? clamp(window.scrollY / max, 0, 1) : 0;
     righello.style.setProperty("--p", p.toFixed(4));
     if (lettura) lettura.textContent = Math.round(window.scrollY * 0.2646) + " mm";
+    if (ruota && !riduci) ruota.style.transform = "rotate(" + (window.scrollY * 0.1).toFixed(2) + "deg)";
   }
 
   /* ---------------- Aperto ora (orari di esempio) ---------------- */
