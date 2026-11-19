@@ -2,12 +2,8 @@
 (function () {
   "use strict";
 
-  var doc = document.documentElement;
-  var riduci = doc.classList.contains("riduci");
+  var riduci = !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
   var WA = "https://wa.me/393517578080?text=";
-  var desktop = window.matchMedia("(min-width: 1024px)");
-  var tablet = window.matchMedia("(min-width: 768px)");
-
   function $(s, c) { return (c || document).querySelector(s); }
   function $$(s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); }
   function clamp(v, a, b) { return Math.min(b, Math.max(a, v)); }
@@ -19,80 +15,25 @@
   function dataLunga(d) { return d.getDate() + " " + MESI[d.getMonth()] + " " + d.getFullYear(); }
   function migliaia(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, "."); }
 
-  /* ---------------- Menu ---------------- */
-  var menu = $("#menu");
+  /* ---------------- Menu su telefono ---------------- */
   var tastoMenu = $(".menu-tasto");
-  var ultimoFuoco = null;
-  var scrollSalvato = 0;
-  function bloccaPagina(si) {
-    var b = document.body.style;
-    if (si) {
-      scrollSalvato = window.scrollY;
-      b.position = "fixed"; b.top = -scrollSalvato + "px"; b.left = "0"; b.right = "0";
-    } else {
-      b.position = ""; b.top = ""; b.left = ""; b.right = "";
-      window.scrollTo({ top: scrollSalvato, behavior: "instant" });
-    }
-  }
-  function apriMenu() {
-    ultimoFuoco = document.activeElement && document.activeElement !== document.body ? document.activeElement : tastoMenu;
-    menu.classList.add("is-aperto");
-    document.body.classList.add("menu-aperto");
-    bloccaPagina(true);
-    tastoMenu.setAttribute("aria-expanded", "true");
-    setTimeout(function () { $(".menu__chiudi", menu).focus(); }, 30);
-  }
-  function chiudiMenu(senzaFuoco) {
-    if (!menu.classList.contains("is-aperto")) return;
-    menu.classList.remove("is-aperto");
-    document.body.classList.remove("menu-aperto");
-    bloccaPagina(false);
+  var menu = $("#menu");
+  function chiudiMenu() {
+    menu.hidden = true;
     tastoMenu.setAttribute("aria-expanded", "false");
-    if (!senzaFuoco && ultimoFuoco) ultimoFuoco.focus();
+    tastoMenu.setAttribute("aria-label", "Apri il menu");
   }
-  if (menu && tastoMenu) {
-    tastoMenu.addEventListener("click", apriMenu);
-    $$("[data-chiudi]", menu).forEach(function (el) {
-      el.addEventListener("click", function (e) {
-        if (el.tagName === "A") {
-          e.preventDefault();
-          chiudiMenu(true);
-          var dest = document.querySelector(el.getAttribute("href"));
-          if (dest) dest.scrollIntoView({ behavior: riduci ? "auto" : "smooth" });
-        } else chiudiMenu();
-      });
+  if (tastoMenu && menu) {
+    tastoMenu.addEventListener("click", function () {
+      if (!menu.hidden) { chiudiMenu(); return; }
+      menu.hidden = false;
+      tastoMenu.setAttribute("aria-expanded", "true");
+      tastoMenu.setAttribute("aria-label", "Chiudi il menu");
     });
+    $$("a", menu).forEach(function (a) { a.addEventListener("click", chiudiMenu); });
     document.addEventListener("keydown", function (e) {
-      if (!menu.classList.contains("is-aperto")) return;
-      if (e.key === "Escape") { chiudiMenu(); return; }
-      if (e.key === "Tab") {
-        var f = $$("a, button", $(".menu__pannello", menu));
-        var primo = f[0], ultimo = f[f.length - 1];
-        if (e.shiftKey && document.activeElement === primo) { e.preventDefault(); ultimo.focus(); }
-        else if (!e.shiftKey && document.activeElement === ultimo) { e.preventDefault(); primo.focus(); }
-      }
+      if (e.key === "Escape" && !menu.hidden) { chiudiMenu(); tastoMenu.focus(); }
     });
-    desktop.addEventListener("change", function () { chiudiMenu(true); });
-  }
-
-  /* ---------------- Righello di avanzamento ---------------- */
-  var righello = $(".righello");
-  var lettura = $(".righello__lettura");
-  var numeri = $(".righello__numeri");
-  function disegnaNumeri() {
-    if (!numeri) return;
-    var h = window.innerHeight, html = "";
-    for (var y = 40, n = 1; y < h; y += 40, n++) {
-      if (n % 2 === 0) html += '<span style="top:' + (y - 5) + 'px">' + n / 2 + "</span>";
-    }
-    numeri.innerHTML = html;
-  }
-  function aggiornaRighello() {
-    if (!righello) return;
-    var max = document.documentElement.scrollHeight - window.innerHeight;
-    var p = max > 0 ? clamp(window.scrollY / max, 0, 1) : 0;
-    righello.style.setProperty("--p", p.toFixed(4));
-    if (lettura) lettura.textContent = Math.round(window.scrollY * 0.2646) + " mm";
   }
 
   /* ---------------- Aperto ora (orari di esempio) ---------------- */
@@ -117,140 +58,12 @@
       testo = "Chiuso · riapre " + quando + " alle " + hm(prossimo.m);
     }
     $$("[data-stato]").forEach(function (el) { el.textContent = testo; el.classList.toggle("is-aperto", aperto); });
-    $$(".barra__stato").forEach(function (el) { el.classList.toggle("is-aperto", aperto); });
     $$(".orari li").forEach(function (li) {
       li.classList.toggle("is-oggi", li.getAttribute("data-giorni").split(",").indexOf(String(g)) > -1);
     });
   }
   statoOra();
   setInterval(statoOra, 60000);
-
-  /* ---------------- Comparse allo scorrimento ---------------- */
-  var rv = $$(".rv");
-  if ("IntersectionObserver" in window && !riduci) {
-    var io = new IntersectionObserver(function (voci) {
-      voci.forEach(function (v) { if (v.isIntersecting) { v.target.classList.add("is-in"); io.unobserve(v.target); } });
-    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
-    rv.forEach(function (el) { io.observe(el); });
-  } else {
-    rv.forEach(function (el) { el.classList.add("is-in"); });
-  }
-
-  /* ---------------- Esploso dell'auto (home) ---------------- */
-  var esploso = $(".esploso");
-  var aggiornaEsploso = function () {};
-  if (esploso) {
-    var svg = $(".auto", esploso);
-    var testo = $(".esploso__testo", esploso);
-    var pin = $(".esploso__pin", esploso);
-    var palco = $(".esploso__palco", esploso);
-    var pezzi = $$(".pezzo[data-dx]", svg);
-    var assi = $$(".asse", svg);
-    var lettere = $$(".lettera", esploso);
-    var dida = $("[data-dida]", esploso);
-    var finale = false;
-    var mappaLettere = {};
-    lettere.forEach(function (l) { mappaLettere[l.getAttribute("data-per")] = l; });
-    var ordine = ["motore", "batteria", "centralina", "clima", "ruota-ant", "ruota-post", "disco", "scarico"];
-
-    function facile(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
-    function mostraLettera(l, si) {
-      if (l.classList.contains("is-visibile") === si) return;
-      l.classList.toggle("is-visibile", si);
-      if (si && tablet.matches) { l.removeAttribute("tabindex"); l.removeAttribute("aria-hidden"); }
-      else { l.setAttribute("tabindex", "-1"); l.setAttribute("aria-hidden", "true"); }
-    }
-    function applica(p) {
-      pezzi.forEach(function (g) {
-        var id = g.getAttribute("data-pezzo");
-        var i = ordine.indexOf(id);
-        var t = facile(clamp((p - 0.04 - i * 0.055) / 0.42, 0, 1));
-        var dx = +g.getAttribute("data-dx") * t, dy = +g.getAttribute("data-dy") * t;
-        g.style.transform = "translate(" + dx.toFixed(1) + "px," + dy.toFixed(1) + "px)";
-        g.classList.toggle("is-staccato", t > 0.5);
-        var l = mappaLettere[id];
-        if (l) mostraLettera(l, t > 0.97);
-        if (righe[id]) righe[id].classList.toggle("is-on", t > 0.9);
-      });
-      svg.style.setProperty("--assi", clamp(p * 1.6, 0, 0.8).toFixed(3));
-      var tutto = p > 0.88;
-      if (tutto !== finale && dida) {
-        finale = tutto;
-        dida.textContent = tutto ? "Tocca un pezzo: prezzi e tempi di quel lavoro." : "Scorri: smontiamo l'auto pezzo per pezzo.";
-      }
-    }
-    var cima = 0, libero = false;
-    var righe = {};
-    $$(".vivo__riga", esploso).forEach(function (r) { righe[r.getAttribute("data-per")] = r; });
-    function misura() {
-      esploso.classList.remove("is-libero");
-      cima = parseFloat(getComputedStyle(palco).top) || 0;
-      var barra = parseFloat(getComputedStyle(document.body).paddingBottom) || 0;
-      var alto = desktop.matches ? pin.scrollHeight : palco.offsetHeight;
-      libero = alto > window.innerHeight - cima - barra + 4 || (desktop.matches && window.innerHeight < 640);
-      esploso.classList.toggle("is-libero", libero);
-    }
-    aggiornaEsploso = function () {
-      if (riduci) return;
-      var r = esploso.getBoundingClientRect();
-      var p;
-      if (libero) {
-        var a = svg.getBoundingClientRect();
-        p = (window.innerHeight * 0.78 - a.top) / (window.innerHeight * 0.5);
-      } else if (desktop.matches) {
-        var top = parseFloat(getComputedStyle(pin).top) || 0;
-        p = (top - r.top) / Math.max(1, r.height - pin.offsetHeight);
-      } else {
-        var off = testo.offsetHeight;
-        p = (cima - r.top - off) / Math.max(1, r.height - off - palco.offsetHeight);
-      }
-      applica(clamp(p, 0, 1));
-    };
-    misura();
-    if (riduci) {
-      applica(1);
-    } else {
-      // il plotter disegna l'auto all'ingresso
-      var plotter = $(".plotter", esploso);
-      requestAnimationFrame(function () {
-        plotter.style.setProperty("--larghezza", palco.querySelector(".palco").offsetWidth + "px");
-        plotter.classList.add("is-va");
-        svg.classList.add("is-disegnata");
-      });
-      setTimeout(function () {
-        if (window.scrollY < 40) {
-          svg.classList.add("is-accenno");
-          setTimeout(function () { svg.classList.remove("is-accenno"); }, 1200);
-        }
-      }, 1500);
-      aggiornaEsploso();
-    }
-    // tocco o passaggio su una lettera o su una riga della distinta: il pezzo si accende
-    $$("[data-per]").forEach(function (el) {
-      var g = $('.pezzo[data-pezzo="' + el.getAttribute("data-per") + '"]', svg);
-      if (!g) return;
-      var on = function () { g.classList.add("is-attivo"); };
-      var off = function () { g.classList.remove("is-attivo"); };
-      el.addEventListener("pointerenter", on);
-      el.addEventListener("pointerleave", off);
-      el.addEventListener("focus", on);
-      el.addEventListener("blur", off);
-    });
-    window.addEventListener("resize", function () { misura(); aggiornaEsploso(); });
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { misura(); aggiornaEsploso(); });
-  }
-
-  /* ---------------- Scorrimento: un solo ciclo per fotogramma ---------------- */
-  var inCoda = false;
-  function suScroll() {
-    if (inCoda) return;
-    inCoda = true;
-    requestAnimationFrame(function () { inCoda = false; aggiornaRighello(); aggiornaEsploso(); });
-  }
-  window.addEventListener("scroll", suScroll, { passive: true });
-  window.addEventListener("resize", function () { disegnaNumeri(); suScroll(); });
-  disegnaNumeri();
-  aggiornaRighello();
 
   /* ---------------- Promemoria tagliando ---------------- */
   var calcolo = $("#calcolo");
@@ -361,27 +174,6 @@
       var btn = this; var t = btn.textContent;
       btn.textContent = "Promemoria scaricato ✓";
       setTimeout(function () { btn.textContent = t; }, 2400);
-    });
-  }
-
-  /* ---------------- Cosa senti? (servizi) ---------------- */
-  var gettoni = $$(".sintomi .gettone");
-  if (gettoni.length) {
-    var vuoto = $("[data-sintomo-vuoto]"), pieno = $("[data-sintomo-pieno]"), link = $("[data-sintomo-link]");
-    gettoni.forEach(function (g) {
-      g.addEventListener("click", function () {
-        var gia = g.getAttribute("aria-pressed") === "true";
-        gettoni.forEach(function (x) { x.setAttribute("aria-pressed", "false"); });
-        $$(".tavola").forEach(function (t) { t.classList.remove("is-trovata"); });
-        if (gia) { vuoto.hidden = false; pieno.hidden = true; link.hidden = true; return; }
-        g.setAttribute("aria-pressed", "true");
-        var t = $('.tavola[data-sigla="' + g.getAttribute("data-sigla") + '"]');
-        t.classList.add("is-trovata");
-        var nome = $(".tavola__titolo", t).textContent;
-        vuoto.hidden = true; pieno.hidden = false; link.hidden = false;
-        pieno.innerHTML = "Parti da qui: <strong>tavola " + g.getAttribute("data-sigla") + ", " + nome + "</strong>.";
-        link.href = "#" + t.id;
-      });
     });
   }
 
